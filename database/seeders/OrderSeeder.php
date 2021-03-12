@@ -20,7 +20,7 @@ class OrderSeeder extends Seeder
             
             'send_from'=>'Quang Nam',
             'send_to'=>'Da Nang',
-            'time_send'=>'2020-07-06',
+            'time_send'=>'2020-07-06 18:20:40',
             'name'=> " Chuyen nha tro bao gom cac do dung",
             'mass'=>100,
             'unit'=>'3 bao',
@@ -37,7 +37,7 @@ class OrderSeeder extends Seeder
             
             'send_from'=>'Quang Ngai',
             'send_to'=>'Quang NAm',
-            'time_send'=>'2020-05-06',
+            'time_send'=>'2020-05-06 18:20:40',
             'name'=> " Chuyen nha tro bao gom cac do dung",
             'mass'=>200,
             'unit'=>'10 bao',

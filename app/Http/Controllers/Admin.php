@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Bill;
 use App\Models\Order;
 use App\Models\Promotion;
+use App\Models\Role;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -61,20 +62,10 @@ class Admin extends Controller
     }
 
         public function PromotionSave( Request $request){
-            $promotion = new Promotion([
-                'name' => $request->get('name'),
-                'code' => $request->get('code'),
-                'start_time' => $request->get('start_time'),
-                'end_time' => $request->get('end_time'),
-                'min_value' =>$request->get('min_value'),
-                'max_value' =>$request->get('max_value'),
-                'value' => $request->get('value')
-            ]);
+            $promotion = Promotion::create($request->all());
 
-            $promotion->save();
-
-            return response()->json($promotion,'success');
-            echo "abc";
+            return response()->json($promotion,200);
+           
             }
             // }
             // $promotion = Promotion::create($request->all());
@@ -83,38 +74,40 @@ class Admin extends Controller
 
 
         public function PromotionUpdate(Request $request,$id){
-            $promotion = Promotion::find($id);
+            
+           $promotion = Promotion::find($id);
            
-            $promotion->name =$request->name;
-            $promotion->code=$request->code;
-            $promotion->start_time=$request->start_time;
-            $promotion->end_time=$request->end_time;
-            $promotion->min_value=$request->max_value;
-            $promotion->max_value=$request->max_value;
-            $promotion->value=$request->value;
+        //     $promotion->name =$request->name;
+        //     $promotion->code=$request->code;
+        //     $promotion->start_time=$request->start_time;
+        //     $promotion->end_time=$request->end_time;
+        //     $promotion->min_value=$request->max_value;
+        //     $promotion->max_value=$request->max_value;
+        //     $promotion->value=$request->value;
 
-            $promotion->save();
+        //     $promotion->save();
       
-        // return response()->json($products);
+        // // return response()->json($products);
             
             if(is_null($promotion)){
                 return response()->json(["message"=>"Record not found!"],404);
             }
-            // $promotion->update($request->all());
+             $promotion->update($request->all());
             return response()->json($promotion,200);
         }
 
 
 
 //User
-    public function getUser(){  
-        return response()->json(User::get(),200);  
+    public function getTrucker(){  
+        return response()->json(User:: where('id_role','2')->get() ,200);  
     }
 
     public function deleteUser(Request $request,  $id){
         $user = User::find($id);
         // $user = User::where('account_id', $id)->delete();
         $order= Order::where('id_user', $id)->delete();
+        $bill= Bill::where('id_order', $id)->delete();
         if(is_null($user)){
             return response()->json(["message"=>"Record Promotion not found!"],404);
         }
@@ -122,6 +115,12 @@ class Admin extends Controller
         return response()->json(null,204);
     }
 
+
+    
+    function getSender(){
+        return response()->json(User:: where('id_role','1')->get() ,200);  
+ 
+     }
 
 
 

@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->string('send_from');
             $table->string('send_to');
-            $table->date('time_send');
+            $table->timestamp('time_send');
             $table->string('name');
             $table->Integer('mass');
             $table->string('unit');
